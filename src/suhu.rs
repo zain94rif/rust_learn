@@ -53,7 +53,7 @@ pub fn suhu() {
     println!("{fahrenheit}°F = {celsius}°C");
 }
 */
-
+/*
 pub fn suhu() {
     println!("=== Konversi Suhu ===");
     println!("Pilih 1. Celsius → Fahrenheit");
@@ -82,5 +82,56 @@ pub fn suhu() {
         let fahrenheit: f64 = input.trim().parse().expect("Masukkan angka");
         let celsius = (fahrenheit - 32.0) * 5.0 / 9.0;
         println!("{fahrenheit}°F = {celsius}°C");
+    }
+}
+*/
+
+fn c2f(c: f64) -> f64 {
+    c * 9.0 / 5.0 + 32.0
+}
+
+fn f2c(f: f64) -> f64 {
+    (f - 32.0) * 5.0 / 9.0
+}
+
+pub fn suhu() {
+    println!("=== Konversi Suhu ===");
+    println!("1. Celsius → Fahrenheit");
+    println!("2. Fahrenheit → Celsius");
+
+    let mut input = String::new();
+    io::stdin()
+        .read_line(&mut input)
+        .expect("Gagal membaca input");
+
+    let pilihan: u8 = input
+        .trim()
+        .parse()
+        .expect("Input harus berupa angka 1 atau 2");
+
+    input.clear(); // bersihkan variable input
+
+    match pilihan {
+        1 => println!("Masukkan suhu dalam Celsius:"),
+        2 => println!("Masukkan suhu dalam Fahrenheit:"),
+        _ => panic!("Pilihan salah!"),
+    }
+
+    io::stdin()
+        .read_line(&mut input)
+        .expect("Gagal membaca input");
+
+    let suhu: f64 = input.trim().parse().expect("Masukkan angka");
+
+    // let hasil = match pilihan {
+    //     1 => (suhu * 9.0 / 5.0) + 32.0,
+    //     2 => (suhu - 32.0) * 5.0 / 9.0,
+    //     _ => unreachable!(),
+    // };
+
+    match pilihan {
+        1 => println!("{suhu}°C = {}°F", c2f(suhu)),
+        2 => println!("{suhu}°F = {}°C", f2c(suhu)),
+        _ => {}
     }
 }
